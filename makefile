@@ -11,4 +11,5 @@ syscalls.o: syscalls.c
 	g++ ${CFLAGS} -c syscalls.c
 clean:
 	rm -f *.o
+	rm -f qrCodeFile.pbm
 	rm -f qrGenerator
