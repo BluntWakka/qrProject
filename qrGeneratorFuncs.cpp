@@ -1,10 +1,27 @@
-
+#include <stdio.h>
 
 void writePBM(char code[25][25])
 {
-
+    //Make a new file and open the file for writing
+    FILE* qrCodeFile; 
+    qrCodeFile = fopen("qrCode.pbm", "w"); 
+   
+    //Write in default header information for pbm file
+    fprintf(qrCodeFile, "P1\n");
+    fprintf(qrCodeFile, "25 25\n");  
+  
+    // Writing loop for the char matrix
+    for (int i = 0; i < 25; i++) 
+    { 
+        for (int j = 0; j < 25; j++) 
+        { 
+            char temp = code[i][j];   
+            fprintf(qrCodeFile, "%d", temp); 
+        } 
+        fprintf(qrCodeFile, "\n"); 
+    } 
+    fclose(qrCodeFile); 
 }
-
 
 char* requestUrl()
 {
@@ -14,6 +31,7 @@ char* requestUrl()
 
 void urlToMatrix(char* url)
 {
+    //Default qr code insantiation, has basic version two markers and necessary configuration
     char code[25][25] = {
     {1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
@@ -41,4 +59,8 @@ void urlToMatrix(char* url)
     {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
+
+    //Add encoding information here
+
+    writePBM(code);
 }
